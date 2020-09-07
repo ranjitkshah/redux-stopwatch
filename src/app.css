@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px;
+}
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 6rem;
+}
+body{
+  background-color: #C2C1C2;
+  color: #42213D;
+}
+
+button {
+  padding: 2rem 4rem;
+  width: 25rem;
+  border-radius: 1rem;
+  border: none;
+  font-size: 3rem;
+  outline: none;
+  color: #683257;
+}
