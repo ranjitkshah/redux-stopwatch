@@ -74,10 +74,13 @@ export default function Timer(props) {
             {
               lapList.map((val, i, arr) => {
                 return (
-                  <div className="lapItem">
+                  <div className="lapItem" key={i}>
                     <div className="lap">{i + 1 < 10 ? `0${i + 1}` : i + 1}</div>
                     {
-                      !i ? <div className="lap">{val.minutes < 10 ? `0${val.minutes}` : val.minutes}:{val.seconds < 10 ? `0${val.seconds}` : val.seconds}:{val.milliseconds < 10 ? `0${val.milliseconds}` : val.milliseconds}</div> :
+                      !i
+                        ?
+                        <div className="lap">{val.minutes < 10 ? `0${val.minutes}` : val.minutes}:{val.seconds < 10 ? `0${val.seconds}` : val.seconds}:{val.milliseconds < 10 ? `0${val.milliseconds}` : val.milliseconds}</div>
+                        :
 
                         <div className="lap">
                           {Math.abs(val.minutes - arr[i - 1].minutes) < 10 ? `0${Math.abs(val.minutes - arr[i - 1].minutes)}` : Math.abs(val.minutes - arr[i - 1].minutes)}:
