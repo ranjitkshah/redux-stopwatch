@@ -42,11 +42,10 @@ export default function Timer(props) {
     setPaused(false)
     start();
   }
-  console.log(this);
   function lap() {
     setLapList((prev) => {
       return (
-        [time, ...prev]
+        [...prev, time]
       )
     })
   }
@@ -67,10 +66,27 @@ export default function Timer(props) {
       {
         lapList.length ?
           <div className="lapContainer">
+            <div className="lapItem">
+              <div className="lap">Lap</div>
+              <div className="lap">Lap Time</div>
+              <div className="lap">Overall Time</div>
+            </div>
             {
-              lapList.map((val) => {
+              lapList.map((val, i, arr) => {
                 return (
-                  <h6 className="lap">{val.minutes < 10 ? `0${val.minutes}` : val.minutes}:{val.seconds < 10 ? `0${val.seconds}` : val.seconds}:{val.milliseconds < 10 ? `0${val.milliseconds}` : val.milliseconds}</h6>
+                  <div className="lapItem">
+                    <div className="lap">{i + 1 < 10 ? `0${i + 1}` : i + 1}</div>
+                    {
+                      !i ? <div className="lap">{val.minutes < 10 ? `0${val.minutes}` : val.minutes}:{val.seconds < 10 ? `0${val.seconds}` : val.seconds}:{val.milliseconds < 10 ? `0${val.milliseconds}` : val.milliseconds}</div> :
+
+                        <div className="lap">
+                          {Math.abs(val.minutes - arr[i - 1].minutes) < 10 ? `0${Math.abs(val.minutes - arr[i - 1].minutes)}` : Math.abs(val.minutes - arr[i - 1].minutes)}:
+                          {Math.abs(val.seconds - arr[i - 1].seconds) < 10 ? `0${Math.abs(val.seconds - arr[i - 1].seconds)}` : Math.abs(val.seconds - arr[i - 1].seconds)}:
+                          {Math.abs(val.milliseconds - arr[i - 1].milliseconds) < 10 ? `0${Math.abs(val.milliseconds - arr[i - 1].milliseconds)}` : Math.abs(val.milliseconds - arr[i - 1].milliseconds)}</div>
+                    }
+                    <div className="lap">{val.minutes < 10 ? `0${val.minutes}` : val.minutes}:{val.seconds < 10 ? `0${val.seconds}` : val.seconds}:{val.milliseconds < 10 ? `0${val.milliseconds}` : val.milliseconds}</div>
+                  </div>
+
                 )
               })
             }
