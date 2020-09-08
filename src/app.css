@@ -11,19 +11,41 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 6rem;
 }
-body{
-  background-color: #C2C1C2;
-  color: #42213D;
+body {
+  background-color: #c2c1c2;
+  color: #42213d;
 }
 
 button {
-  padding: 2rem 4rem;
-  width: 25rem;
-  border-radius: 1rem;
+  padding: 1.5rem 3rem;
+  margin: 2rem;
+  width: 20rem;
+  border-radius: 4rem;
   border: none;
-  font-size: 3rem;
+  font-size: 2.5rem;
   outline: none;
   color: #683257;
+}
+
+.clock {
+  font-size: 6rem;
+}
+.buttonConatiner {
+  display: flex;
+  transition: all 3s;
+}
+.lapContainer {
+  border: 2px solid #5d5b5d;
+  box-shadow: 0 0 15px 5px #42213d91;
+  border-radius: 1rem;
+  height: 70vh;
+  width: 30vw;
+  overflow-y: auto;
+}
+.lap {
+  padding: 1rem;
+  text-align: center;
+  font-size: 2.5rem;
+  border-bottom: 1px solid black;
 }
