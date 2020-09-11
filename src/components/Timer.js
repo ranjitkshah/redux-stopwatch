@@ -4,54 +4,43 @@ import LapButton from './LapButton'
 import ResetButton from './ResetButton'
 import PauseButton from './PauseButton'
 import ResumeButton from './ResumeButton'
+import { connect } from 'react-redux'
+import { minutesAct, secondsAct, millisecondsAct, pausedAct, startedAct, lapListAct, timeResetAct, resetListAct } from '../redux/action'
 
-export default function Timer(props) {
-  const [time, setTime] = useState({ minutes: 0, seconds: 0, milliseconds: 0 })
-  const [paused, setPaused] = useState(false)
-  const [started, setStarted] = useState(false)
-  const [lapList, setLapList] = useState([])
+function Timer({ minutes, seconds, milliseconds, paused, started, lapList, minutesAct, secondsAct, millisecondsAct, pausedAct, resetListAct, startedAct, lapListAct, timeResetAct }) {
 
   function start() {
-    setStarted(true)
+    startedAct();
     window.interval = setInterval(() => {
-      setTime((prev) => {
-        if (prev.seconds === 59)
-          return { ...prev, minutes: prev.minutes + 1, seconds: 0 }
-        if (prev.milliseconds === 99)
-          return { ...prev, seconds: prev.seconds + 1, milliseconds: 0 }
-        else
-          return { ...prev, milliseconds: prev.milliseconds + 1 }
-      })
+      minutesAct();
+      secondsAct();
+      millisecondsAct();
     }, 10)
   }
+
   function reset() {
-    setLapList([])
-    setPaused(false)
-    setStarted(false)
+    resetListAct()
+    pausedAct()
+    startedAct()
     clearInterval(window.interval)
-    setTime(() => {
-      return { minutes: 0, seconds: 0, milliseconds: 0 }
-    })
+    timeResetAct()
   }
 
   function pause() {
-    setPaused(true)
+    pausedAct()
     clearInterval(window.interval)
   }
   function resume() {
-    setPaused(false)
+    startedAct();
+    pausedAct();
     start();
   }
   function lap() {
-    setLapList((prev) => {
-      return (
-        [...prev, time]
-      )
-    })
+    lapListAct()
   }
   return (
     <>
-      <h1 className="clock">{time.minutes < 10 ? `0${time.minutes}` : time.minutes}:{time.seconds < 10 ? `0${time.seconds}` : time.seconds}:{time.milliseconds < 10 ? `0${time.milliseconds}` : time.milliseconds}</h1>
+      <h1 className="clock">{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}:{milliseconds < 10 ? `0${milliseconds}` : milliseconds}</h1>
       {
         started ?
           <div className="buttonConatiner">
@@ -99,3 +88,29 @@ export default function Timer(props) {
   )
 
 }
+
+const mapStateToProps = (state) => {
+  return {
+    minutes: state.minutes,
+    seconds: state.seconds,
+    milliseconds: state.milliseconds,
+    paused: state.paused,
+    started: state.started,
+    lapList: state.lapList
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    minutesAct: () => { dispatch(minutesAct) },
+    secondsAct: () => { dispatch(secondsAct) },
+    millisecondsAct: () => { dispatch(millisecondsAct) },
+    pausedAct: () => { dispatch(pausedAct) },
+    startedAct: () => { dispatch(startedAct) },
+    lapListAct: () => { dispatch(lapListAct) },
+    timeResetAct: () => { dispatch(timeResetAct) },
+    resetListAct: () => { dispatch(resetListAct) }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer)
