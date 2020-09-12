@@ -1,47 +1,22 @@
 const initialState = {
-  minutes: 0,
-  seconds: 0,
-  milliseconds: 0,
   paused: false,
   started: false,
-  lapList: []
+  lapList: [],
+  time: { minutes: 0, seconds: 0, milliseconds: 0 }
 }
 
 const reducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case "MINUTES": {
-      if (state.seconds === 59)
-        return {
-          ...state,
-          minutes: state.minutes + 1,
-          seconds: 0
-        }
-      else
-        return state
-    }
-    case "SECONDS": {
-      if (state.milliseconds === 99)
-        return {
-          ...state,
-          seconds: state.seconds + 1,
-          milliseconds: 0
-        }
-      else
-        return state
-    }
-    case "MILLISECONDS": {
-      return {
-        ...state,
-        milliseconds: state.milliseconds + 1
-      }
-    }
+
     case "TIME_RESET": {
       return {
         ...state,
-        minutes: 0,
-        seconds: 0,
-        milliseconds: 0
+        time: {
+          minutes: 0,
+          seconds: 0,
+          milliseconds: 0
+        }
       }
     }
     case "PAUSED": {
@@ -73,18 +48,50 @@ const reducer = (state = initialState, action) => {
     case "LAPLIST": {
       return {
         ...state,
-        lapList: [...state.lapList, { minutes: state.minutes, seconds: state.seconds, milliseconds: state.milliseconds }]
+        lapList: [...state.lapList, {
+          minutes: state.time.minutes,
+          seconds: state.time.seconds,
+          milliseconds: state.time.milliseconds,
+        }
+        ]
       }
-    }
+    } 
     case "RESET_LIST": {
       return {
         ...state,
         lapList: []
       }
     }
+    case "TIME": {
+      if (state.time.seconds === 59)
+        return {
+          ...state,
+          time: {
+            ...state.time,
+            minutes: state.time.minutes + 1,
+            seconds: 0
+          }
+        }
+      if (state.time.milliseconds === 99)
+        return {
+          ...state,
+          time: {
+            ...state.time,
+            seconds: state.time.seconds + 1,
+            milliseconds: 0
+          }
+        }
+      return {
+        ...state,
+        time: {
+          ...state.time,
+          milliseconds: state.time.milliseconds + 1
+        }
+      }
+    }
 
     default:
-      return state;
+      return state
   }
 }
 

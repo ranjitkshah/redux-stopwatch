@@ -26,6 +26,19 @@ button {
   font-size: 2.5rem;
   outline: none;
   color: #683257;
+  transition: all 0.5s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 10px 3px rgba(77, 77, 77, 0.61);
+  background-color: #42213d;
+  color: white;
+  cursor: pointer;
+}
+button:active {
+  box-shadow: 0 6px 6px 3px rgb(66, 66, 66);
+  transform: scale(0.9);
 }
 
 .clock {
@@ -53,4 +66,20 @@ button {
   display: flex;
   border-bottom: 1px solid black;
   justify-content: space-between;
+}
+.greenBtn {
+  background-color: rgb(135, 231, 135);
+  color: #42213d;
+}
+.greenBtn:hover{
+  background-color: rgb(135, 231, 135);
+  color: #42213d; 
+}
+.redBtn {
+  background-color: rgb(243, 81, 81);
+  color: #42213d;
+}
+.redBtn:hover{
+  background-color: rgb(243, 81, 81);
+  color: #42213d; 
 }

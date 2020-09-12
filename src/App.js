@@ -5,13 +5,7 @@ import { createStore } from 'redux'
 import reducer from './redux/reducer'
 import { Provider } from 'react-redux'
 
-
 const store = createStore(reducer);
-
-store.subscribe(() => {
-  console.log(store.getState());
-})
-
 
 function App() {
 
@@ -23,6 +17,5 @@ function App() {
     </Provider>
   )
 }
-
 
 export default App;

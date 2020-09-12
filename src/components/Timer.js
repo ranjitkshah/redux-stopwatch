@@ -5,16 +5,14 @@ import ResetButton from './ResetButton'
 import PauseButton from './PauseButton'
 import ResumeButton from './ResumeButton'
 import { connect } from 'react-redux'
-import { minutesAct, secondsAct, millisecondsAct, pausedAct, startedAct, lapListAct, timeResetAct, resetListAct } from '../redux/action'
+import { pausedAct, startedAct, lapListAct, timeResetAct, timeAct, resetListAct } from '../redux/action'
 
-function Timer({ minutes, seconds, milliseconds, paused, started, lapList, minutesAct, secondsAct, millisecondsAct, pausedAct, resetListAct, startedAct, lapListAct, timeResetAct }) {
+function Timer({ paused, started, time, lapList, timeAct, pausedAct, resetListAct, startedAct, lapListAct, timeResetAct }) {
 
   function start() {
     startedAct();
     window.interval = setInterval(() => {
-      minutesAct();
-      secondsAct();
-      millisecondsAct();
+      timeAct();
     }, 10)
   }
 
@@ -40,7 +38,7 @@ function Timer({ minutes, seconds, milliseconds, paused, started, lapList, minut
   }
   return (
     <>
-      <h1 className="clock">{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}:{milliseconds < 10 ? `0${milliseconds}` : milliseconds}</h1>
+      <h1 className="clock">{time.minutes < 10 ? `0${time.minutes}` : time.minutes}:{time.seconds < 10 ? `0${time.seconds}` : time.seconds}:{time.milliseconds < 10 ? `0${time.milliseconds}` : time.milliseconds}</h1>
       {
         started ?
           <div className="buttonConatiner">
@@ -91,9 +89,7 @@ function Timer({ minutes, seconds, milliseconds, paused, started, lapList, minut
 
 const mapStateToProps = (state) => {
   return {
-    minutes: state.minutes,
-    seconds: state.seconds,
-    milliseconds: state.milliseconds,
+    time: state.time,
     paused: state.paused,
     started: state.started,
     lapList: state.lapList
@@ -102,9 +98,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    minutesAct: () => { dispatch(minutesAct) },
-    secondsAct: () => { dispatch(secondsAct) },
-    millisecondsAct: () => { dispatch(millisecondsAct) },
+    timeAct: () => { dispatch(timeAct) },
     pausedAct: () => { dispatch(pausedAct) },
     startedAct: () => { dispatch(startedAct) },
     lapListAct: () => { dispatch(lapListAct) },

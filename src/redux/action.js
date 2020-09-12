@@ -1,12 +1,3 @@
-const minutesAct = {
-  type: "MINUTES"
-}
-const secondsAct = {
-  type: "SECONDS"
-}
-const millisecondsAct = {
-  type: "MILLISECONDS"
-}
 const pausedAct = {
   type: "PAUSED"
 }
@@ -22,5 +13,8 @@ const resetListAct = {
 const timeResetAct = {
   type: "TIME_RESET"
 }
+const timeAct = {
+  type: "TIME"
+}
 
-export { minutesAct, secondsAct, millisecondsAct, pausedAct, startedAct, lapListAct, timeResetAct, resetListAct }
+export { pausedAct, startedAct, lapListAct, timeResetAct, timeAct, resetListAct }
