@@ -55,6 +55,7 @@ const reducer = (state = initialState, action) => {
         }
         ]
       }
+  
     } 
     case "RESET_LIST": {
       return {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import StartButton from './StartButton'
 import LapButton from './LapButton'
 import ResetButton from './ResetButton'
@@ -35,6 +35,7 @@ function Timer({ paused, started, time, lapList, timeAct, pausedAct, resetListAc
   }
   function lap() {
     lapListAct()
+    console.log(lapList)
   }
   return (
     <>
